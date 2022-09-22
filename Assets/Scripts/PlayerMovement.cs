@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // TODO: Add acceleration & friction to player :)
-        // TODO: Add air & ground friction :)
-        // TODO: Add CoyoteTime :)
-        // TODO: Add double jump :)
-        // TODO: Add max vertical velocity 
-        // TODO: Add variable jump height
-
         [Header("Movement")] public float maxMoveSpeedX = 6f;
         public float maxVelocityY = 16f;
         public float acceleration = 1f;
@@ -61,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
         private void UpdateJumping()
         {
             VariableJumpHeight();
-            // TODO: Add fine tuned apex gravity control
             if (!_isJumping && !_collision.IsGroundedBox())
             {
                 _coyoteTimeCounter += Time.deltaTime;
@@ -85,9 +77,6 @@ public class PlayerMovement : MonoBehaviour
                 _rigidbody2D.velocity = Vector2.up * jumpSpeed;
                 _isJumping = true;
                 doubleJumpValue--;
-                /*
-                 
-                 */
             }
         }
 
@@ -105,15 +94,11 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                // LERP: Linear Interpolation: Variable from A to B over T(time)
-                //                                                      If onGround, Set Friction to GroundFriction
-                //                                                      If !onGround, Set Friction to AirFriction
                 _moveSpeed = Mathf.Lerp(_moveSpeed, 0f, _collision.IsGroundedBox() ? groundFriction : airFriction);
             }
 
             _currentVelocity.x = _moveSpeed;
-
-            // Return current Velocity into Rigidbody2D.velocity
+            
             _rigidbody2D.velocity = _currentVelocity;
         }
 
